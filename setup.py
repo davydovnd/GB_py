@@ -9,7 +9,7 @@ setup(
        # the name must match the folder name 'verysimplemodule'
         name="GB", 
         version=VERSION,
-        author="Davydov N. Geondzhian A., Aksenov D.",
+        author="Davydov N., Geondzhian A., Aksenov D.",
         author_email="Nikita.Davydov@skoltech.ru",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
