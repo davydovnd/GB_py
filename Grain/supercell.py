@@ -5,7 +5,7 @@ from siman.geo import create_supercell
 from siman.core.structure import Structure
 
 """
-To do: 
+To do:
 - fix reduced coordinates
 - convert back to siman structure
 - check all three dimenstions
@@ -47,22 +47,19 @@ class tools:
         for direction in range(3):
             print('processing direction:', direction)
             # preporcessing.  finds layers in one direction and create log structure with atoms splited by layers.
-            self.log[direction]['unique'] = np.unique(
-                [np.floor(atoms[atom_index]['pos'][direction]/self.threshold).astype(int)*self.threshold for atom_index in atoms])
+
+            self.log[direction]['unique'] = np.unique([np.round(
+                atoms[atom_index]['pos'][direction]/self.threshold).astype(int)*self.threshold for atom_index in atoms])
 
             for layer_index, position in enumerate(self.log[direction]['unique']):
                 self.log[direction][layer_index] = {sub_index: item for sub_index, item in atoms.items(
                 ) if self.soft_match(atoms[sub_index]['pos'][direction], position)}
-            # print(self.log[direction]['unique'])
             subcell = {}  # here subsctructure will be written
             # iterates through layers
             for layer_index in range(0, len(self.log[direction]['unique'])):
                 # checks if two layers match
-                # print(self.log[direction][layer_index],
-                #       self.log[direction][0], direction)
                 tmp = self.check_if_layers_match(
                     self.log[direction][layer_index], self.log[direction][0], direction)
-                # print(tmp)
                 if tmp:  # if match then checks all other layers
                     next_layer_match = True  # assumtion
                     # checks if you layers below can be translated to the layers above. if not - no translations possible
