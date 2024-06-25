@@ -1,6 +1,7 @@
 import numpy as np
 from siman.calc_manage import smart_structure_read
 from siman.geo import hkl2uvw, three2four_index, create_supercell, four2three_index
+from siman.core.structure import Structure
 
 # perpendicular_vector = np.cross([1,-1,4], [-1,-1,0])
 # temp = three2four_index(perpendicular_vector)
@@ -33,7 +34,10 @@ def grain_const(input_str_path='', gb_plane=[], rot_axis=[], mul=(1, 1, 1)):
 
     """
 
-    st = smart_structure_read(input_geo_file=input_str_path)
+    if isinstance(input_str_path, Structure) == True:
+    	st = input_str_path
+    else:
+    	st = smart_structure_read(input_geo_file = input_str_path)
     # print(st1.rprimd)
     # print(st.rprimd)
     # print(angle/2)
